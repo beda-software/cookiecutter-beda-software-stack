@@ -1,0 +1,108 @@
+{{ "{{-" }} if or (eq .Release.Name "{{cookiecutter.project_slug_dashed}}-backend-production") (eq .Release.Name "{{cookiecutter.project_slug_dashed}}-backend-master") {{ "-}}" }}
+{% raw %}
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ template "fullname" . }}-backup
+spec:
+  schedule: "0 4,19 * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          annotations:
+            checksum/image: "ae1cabc64"
+        spec:
+          imagePullSecrets:
+{% endraw %}
+          - name: {{cookiecutter.project_slug_dashed}}-backup-registry
+{% raw %}
+          volumes:
+          - name: gce-key
+            secret:
+              secretName: {{ template "secretname.backup" . }}
+              items:
+              - key: GCE_KEY
+                path: account.json
+          containers:
+          - name: {{ .Chart.Name }}-backup
+{% endraw %}
+            image: registry.bro.engineering/{{cookiecutter.project_slug_dashed}}/backup:master
+{% raw %}
+            imagePullPolicy: Always
+            volumeMounts:
+              - name: gce-key
+                mountPath: /config
+            env:
+              - name: POSTGRES_USER
+                value: {{ default "postgres" .Values.user | quote }}
+              - name: PGPASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ template "secretname" . }}
+                    key: PGPASSWORD
+{% endraw %}
+              - name: POSTGRES_DATABASE
+                value: {{cookiecutter.project_slug}}
+{% raw %}
+              - name: POSTGRES_HOST
+                value: {{ template "fullname" . }}
+              - name: GCE_KEYFILE
+                value: /config/account.json
+            envFrom:
+              - secretRef:
+                  name: {{ template "secretname.backup" . }}
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ template "fullname" . }}-backup-before-deploy-{{.Release.Revision}}
+spec:
+  template:
+    metadata:
+      annotations:
+        checksum/image: "ae1cabc64"
+    spec:
+      imagePullSecrets:
+{% endraw %}
+      - name: {{cookiecutter.project_slug_dashed}}-backup-registry
+{% raw %}
+      volumes:
+      - name: gce-key
+        secret:
+          secretName: {{ template "secretname.backup" . }}
+          items:
+          - key: GCE_KEY
+            path: account.json
+      containers:
+      - name: {{ .Chart.Name }}-backup
+{% endraw %}
+        image: registry.bro.engineering/{{cookiecutter.project_slug_dashed}}/backup:master
+{% raw %}
+        imagePullPolicy: Always
+        volumeMounts:
+          - name: gce-key
+            mountPath: /config
+        env:
+          - name: POSTGRES_USER
+            value: {{ default "postgres" .Values.user | quote }}
+          - name: PGPASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ template "secretname" . }}
+                key: PGPASSWORD
+          - name: POSTGRES_DATABASE
+{% endraw %}
+            value: {{cookiecutter.project_slug}}
+{% raw %}
+          - name: POSTGRES_HOST
+            value: {{ template "fullname" . }}
+          - name: GCE_KEYFILE
+            value: /config/account.json
+        envFrom:
+          - secretRef:
+              name: {{ template "secretname.backup" . }}
+      restartPolicy: OnFailure
+{{- end -}}
+{% endraw %}

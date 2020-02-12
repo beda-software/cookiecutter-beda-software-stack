@@ -1,0 +1,14 @@
+version: '3'
+services:
+  init:
+    build: .
+    volumes:
+      - .:/app/user
+    env_file:
+      - .env
+    environment:
+      TIER: staging
+      AIDBOX_LICENSE_ID:
+      AIDBOX_LICENSE_KEY:
+      BUCKET:
+      BUCKET_GCE_KEY:

@@ -1,0 +1,9 @@
+{
+    "project_name": "My Awesome project",
+    "project_slug": "{{ cookiecutter.project_name|lower|replace(' ', '_') }}",
+    "project_slug_dashed": "{{ cookiecutter.project_slug|replace('_', '-') }}",
+    "project_domain": "{{ cookiecutter.project_slug_dashed }}.beda.software",
+    "cluster_name_prefix": "",
+    "create_frontend": "n",
+    "create_mobile": "n"
+}
