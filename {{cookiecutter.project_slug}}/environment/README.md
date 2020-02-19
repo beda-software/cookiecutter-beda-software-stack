@@ -62,7 +62,7 @@ spec:
       name: letsencrypt-prod
     server: https://acme-v02.api.letsencrypt.org/directory
 ```
-* Create namespaces:
+* Create namespaces using `kubectl create namespace [NAME]`:
   * {{cookiecutter.cluster_name_prefix}}-backend-master
   * {{cookiecutter.cluster_name_prefix}}-backend-staging
   * {{cookiecutter.cluster_name_prefix}}-backend-develop
