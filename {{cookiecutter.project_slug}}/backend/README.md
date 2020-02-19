@@ -1,7 +1,7 @@
 # {{cookiecutter.project_name}} Backend
 
 ## Tests
-To run tests locally, copy `.env.tpl` to `.env` and specify `AIDBOX_LICENSE_ID` and `AIDBOX_LICENSE_KEY`.  
+To run tests locally, copy `.env.tpl` to `.env` and specify `TESTS_AIDBOX_LICENSE_ID` and `TESTS_AIDBOX_LICENSE_KEY`.  
 
 
 Build images using `docker-compose build -f docker-compose.tests.yaml`.
