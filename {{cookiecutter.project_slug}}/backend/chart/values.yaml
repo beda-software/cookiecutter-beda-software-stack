@@ -36,8 +36,8 @@ ingress:
   annotations:
     kubernetes.io/tls-acme: "true"
     kubernetes.io/ingress.class: "nginx"
-    certmanager.k8s.io/acme-challenge-type: http01
-    certmanager.k8s.io/issuer: letsencrypt-prod
+    cert-manager.io/acme-challenge-type: http01
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 livenessProbe:
   path: "/live"
   initialDelaySeconds: 30

@@ -16,8 +16,6 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: {{ (include "fullname" .) }}
-      nodeSelector:
-        cloud.google.com/gke-nodepool: standard2-pool
       containers:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

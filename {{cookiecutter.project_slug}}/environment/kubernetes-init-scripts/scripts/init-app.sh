@@ -20,6 +20,6 @@ data:
 kind: Secret
 metadata:
   name: {{cookiecutter.project_slug_dashed}}-backend-$TIER-app
-  namespace: {{cookiecutter.cluster_name_prefix}}-$TIER
+  namespace: {{cookiecutter.cluster_name_prefix}}-backend-$TIER
 type: Opaque
 EOF

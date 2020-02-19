@@ -1,3 +1,0 @@
-[submodule "embed/aidbox-python-sdk"]
-	path = embed/aidbox-python-sdk
-	url = https://github.com/Aidbox/aidbox-python-sdk

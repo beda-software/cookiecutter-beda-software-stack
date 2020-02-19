@@ -25,8 +25,8 @@ services:
     env_file:
       - env_tests
     environment:
-      AIDBOX_LICENSE_ID: ${AIDBOX_LICENSE_ID}
-      AIDBOX_LICENSE_KEY: ${AIDBOX_LICENSE_KEY}
+      AIDBOX_LICENSE_ID: ${TESTS_AIDBOX_LICENSE_ID}
+      AIDBOX_LICENSE_KEY: ${TESTS_AIDBOX_LICENSE_KEY}
     volumes:
       - ./wait-for-it.sh:/usr/local/bin/wait-for-it.sh:cached
   devbox-db:

@@ -1,5 +1,4 @@
 # you will need to install these requirements with `pip install -r requirements.txt`
-SQLAlchemy==1.2.18
 PyYAML==3.13
 google-auth==1.6.2
 google-cloud-storage==1.19.1

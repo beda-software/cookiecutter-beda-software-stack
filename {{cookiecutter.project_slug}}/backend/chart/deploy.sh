@@ -3,8 +3,7 @@
 mkdir -p /root/.kube/
 echo "$K8S_CONFIG" > /root/.kube/config
 export KUBECONFIG=/root/.kube/config
-export NAMESPACE="{{ cookiecutter.cluster_name_prefix }}-${CI_COMMIT_REF_NAME}"
-cd /src
+export NAMESPACE="{{cookiecutter.cluster_name_prefix}}-${CI_COMMIT_REF_NAME}"
 kubectl config use-context default
 CI_ENVIRONMENT_SLUG="$CI_COMMIT_REF_SLUG"
 helm upgrade --install \

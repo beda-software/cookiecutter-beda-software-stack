@@ -4,13 +4,13 @@ if [ -f ".env" ]; then
     export `cat .env`
 fi
 
-if [ -z "${AIDBOX_LICENSE_KEY}" ]; then
-    echo "AIDBOX_LICENSE_KEY is required to run tests"
+if [ -z "${TESTS_AIDBOX_LICENSE_KEY}" ]; then
+    echo "TESTS_AIDBOX_LICENSE_KEY is required to run tests"
     exit 1
 fi
 
-if [ -z "${AIDBOX_LICENSE_ID}" ]; then
-    echo "AIDBOX_LICENSE_ID is required to run tests"
+if [ -z "${TESTS_AIDBOX_LICENSE_ID}" ]; then
+    echo "TESTS_AIDBOX_LICENSE_ID is required to run tests"
     exit 1
 fi
 
