@@ -23,3 +23,6 @@ google_oauth_app_id = os.environ.get('GOOGLE_OAUTH_APP_ID')
 google_oauth_app_secret = os.environ.get('GOOGLE_OAUTH_APP_SECRET')
 
 root_dir = os.path.dirname(os.path.abspath(__name__))
+
+dev_init = os.environ.get("DEV_INIT", "False") == "True"
+environment_name = os.environ.get("SENTRY_ENVIRONMENT", "")

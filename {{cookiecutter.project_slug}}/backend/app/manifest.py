@@ -68,6 +68,7 @@ meta_resources = merge_resources({
         },
     },
 }, load_resources(os.path.join(config.root_dir, 'resources/entities')))
+
 seeds = merge_resources({
     'User': {
         'superadmin': {
@@ -91,7 +92,11 @@ seeds = merge_resources({
             }]
         },
     },
-}, load_resources(os.path.join(config.root_dir, 'resources/seeds')))
+}
+    if config.dev_init
+    else {},
+    load_resources(os.path.join(config.root_dir, 'resources/seeds'))
+)
 
 entities = {
     # Place custom resources here
