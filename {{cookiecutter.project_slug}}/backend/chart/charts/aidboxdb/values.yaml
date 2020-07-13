@@ -1,7 +1,7 @@
 replicaCount: 1
 image:
   repository: aidbox/db
-  tag: 11.2.0
+  tag: 11.8.6
   pullPolicy: IfNotPresent
 
 service:

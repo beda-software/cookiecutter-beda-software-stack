@@ -17,8 +17,7 @@ services:
       - ./config:/var/config:cached
       - ./wait-for-it.sh:/usr/local/bin/wait-for-it.sh:cached
   devbox:
-    image: "healthsamurai/devbox:0.4.8"
-    command: ["wait-for-it.sh", "database:5432", "--strict", "--timeout=0", "--", "java", "-jar", "/aidbox.jar", "-m", "devbox.core"]
+    image: "healthsamurai/devbox:0.5.0-SNAPSHOT"
     depends_on:
       - devbox-db
     links:
@@ -31,7 +30,7 @@ services:
       - ./wait-for-it.sh:/usr/local/bin/wait-for-it.sh:cached
       - ./config:/var/config:cached
   devbox-db:
-    image: "aidbox/db:11.4.0.2"
+    image: "aidbox/db:11.8.6"
     environment:
       POSTGRES_USER:     postgres
       POSTGRES_PASSWORD: postgres
