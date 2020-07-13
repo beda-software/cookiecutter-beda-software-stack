@@ -1,7 +1,13 @@
 # {{cookiecutter.project_name}} Backend
 
+## Black autoformater
+```
+brew install pre-commit
+pre-commit install
+```
+
 ## Tests
-To run tests locally, copy `.env.tpl` to `.env` and specify `TESTS_AIDBOX_LICENSE_ID` and `TESTS_AIDBOX_LICENSE_KEY`.  
+To run tests locally, copy `.env.tpl` to `.env` and specify `TESTS_AIDBOX_LICENSE_ID` and `TESTS_AIDBOX_LICENSE_KEY` [https://license-ui.aidbox.app/](https://license-ui.aidbox.app/).
 
 
 Build images using `docker-compose -f docker-compose.tests.yaml build`.
