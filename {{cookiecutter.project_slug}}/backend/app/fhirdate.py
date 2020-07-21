@@ -6,16 +6,17 @@ from dateutil.relativedelta import relativedelta
 from app.config import local_tz
 
 
-FHIR_DATE_TIME_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
-FHIR_TIME_FORMAT = '%H:%M:%S'
-FHIR_DATE_FORMAT = '%Y-%m-%d'
-HUMAN_DATE_FORMAT = '%m.%d.%Y'
-HUMAN_DATE_TIME_FORMAT = '%m.%d.%Y %H:%M'
+FHIR_DATE_TIME_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
+FHIR_TIME_FORMAT = "%H:%M:%S"
+FHIR_DATE_FORMAT = "%Y-%m-%d"
+HUMAN_DATE_FORMAT = "%m.%d.%Y"
+HUMAN_DATE_TIME_FORMAT = "%m.%d.%Y %H:%M"
 
 
 def get_now():
     return local_tz.normalize(
-        pytz.utc.localize(datetime.datetime.utcnow().replace(microsecond=0)))
+        pytz.utc.localize(datetime.datetime.utcnow().replace(microsecond=0))
+    )
 
 
 def parse_time(time):
@@ -24,11 +25,11 @@ def parse_time(time):
 
 def parse_date_time(date):
     try:
-        return local_tz.normalize(pytz.utc.localize(
-            datetime.datetime.strptime(date, FHIR_DATE_TIME_FORMAT)))
+        return local_tz.normalize(
+            pytz.utc.localize(datetime.datetime.strptime(date, FHIR_DATE_TIME_FORMAT))
+        )
     except ValueError:
-        return local_tz.localize(
-            datetime.datetime.strptime(date, FHIR_DATE_FORMAT))
+        return local_tz.localize(datetime.datetime.strptime(date, FHIR_DATE_FORMAT))
 
 
 def parse_date(date):
@@ -61,24 +62,20 @@ def format_local_date_time(date: str):
 
 
 def fhir_dayofweek_to_python(fhir_repr: str):
-    return {'mon': 0,
-            'tue': 1,
-            'wed': 2,
-            'thu': 3,
-            'fri': 4,
-            'sat': 5,
-            'sun': 6}[fhir_repr]
+    return {"mon": 0, "tue": 1, "wed": 2, "thu": 3, "fri": 4, "sat": 5, "sun": 6}[
+        fhir_repr
+    ]
 
 
 def fhir_period_to_timedelta(period: int, fhir_period_unit: str):
     delta_key = {
-        's': 'seconds',
-        'min': 'minutes',
-        'h': 'hours',
-        'd': 'days',
-        'wk': 'weeks',
-        'mo': 'months',
-        'a': 'years',
+        "s": "seconds",
+        "min": "minutes",
+        "h": "hours",
+        "d": "days",
+        "wk": "weeks",
+        "mo": "months",
+        "a": "years",
     }[fhir_period_unit]
 
     return relativedelta(**{delta_key: period})

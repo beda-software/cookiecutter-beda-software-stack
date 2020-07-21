@@ -15,51 +15,48 @@ from app.contrib.utils import robust_fn, sync_to_async
 DEFAULT_EXPIRATION = 3600
 
 
-@sdk.operation(
-    ['GET'], ['$sign', {"name": "resource-type"}, {"name": "id"}])
+@sdk.operation(["GET"], ["$sign", {"name": "resource-type"}, {"name": "id"}])
 async def operation_sign_resource(operation, request):
     expiration = DEFAULT_EXPIRATION
 
-    resource_type = request['route-params']['resource-type']
-    resource_id = request['route-params']['id']
+    resource_type = request["route-params"]["resource-type"]
+    resource_id = request["route-params"]["id"]
     resource = await sdk.client.resources(resource_type).get(id=resource_id)
     sign_resource(resource)
     headers = {
-        'Cache-Control': 'private, max-age={0}'.format(expiration),
+        "Cache-Control": "private, max-age={0}".format(expiration),
     }
 
     return web.json_response(resource.serialize(), headers=headers)
 
 
-@sdk.operation(
-    ["POST"],
-    ["$signed-upload"]
-)
+@sdk.operation(["POST"], ["$signed-upload"])
 async def operation_singed_upload(operation, request):
     resource = request["resource"]
-    file_name = resource['fileName'].split(".")
+    file_name = resource["fileName"].split(".")
     extension = file_name[-1]
     file_name[-1] = str(datetime.datetime.now().timestamp())
     file_name.append(extension)
     file_name = ".".join(file_name)
     now = get_now()
     object_name = "uploads/{year}/{month}/{day}/{file_name}".format(
-        file_name=file_name, year=now.year, month=now.month, day=now.day)
+        file_name=file_name, year=now.year, month=now.month, day=now.day
+    )
     object_url = "https://storage.googleapis.com/{bucket}/{object_name}".format(
-        bucket=config.gc_bucket, object_name=object_name)
+        bucket=config.gc_bucket, object_name=object_name
+    )
     signed_url = generate_signed_url(
         config.gc_account_file,
         config.gc_bucket,
         object_name=object_name,
         expiration=3600,
-        http_method='PUT',
-        headers={"Content-Type": resource['contentType']},
+        http_method="PUT",
+        headers={"Content-Type": resource["contentType"]},
     )
 
-    return web.json_response({
-        "signedUploadUrl": signed_url,
-        "objectUrl": object_url,
-        "fileName": file_name})
+    return web.json_response(
+        {"signedUploadUrl": signed_url, "objectUrl": object_url, "fileName": file_name}
+    )
 
 
 @robust_fn
@@ -85,15 +82,16 @@ def sign_url(url: str, expiration: int):
     object_name = extract_google_storage_object_name_from_url(url)
     if object_name:
         return generate_signed_url(
-            config.gc_account_file, config.gc_bucket, object_name, expiration)
+            config.gc_account_file, config.gc_bucket, object_name, expiration
+        )
     return url
 
 
 def sign_resource(resource):
     def walk(tree):
         if isinstance(tree, dict):
-            if 'url' in tree:
-                tree['url'] = sign_url(tree['url'], DEFAULT_EXPIRATION)
+            if "url" in tree:
+                tree["url"] = sign_url(tree["url"], DEFAULT_EXPIRATION)
         if isinstance(tree, dict):
             for branch in tree.values():
                 walk(branch)
@@ -105,12 +103,9 @@ def sign_resource(resource):
 
 
 def extract_google_storage_object_name_from_url(url):
-    if url.startswith('https://www.googleapis.com/'):
-        return urlparse(url).path.split('/').pop()
-    elif url.startswith('https://storage.googleapis.com/'):
-        return urlparse(url).path.replace(
-            '/{0}/'.format(config.gc_bucket),
-            '',
-        )
+    if url.startswith("https://www.googleapis.com/"):
+        return urlparse(url).path.split("/").pop()
+    elif url.startswith("https://storage.googleapis.com/"):
+        return urlparse(url).path.replace("/{0}/".format(config.gc_bucket), "",)
     else:
         return None

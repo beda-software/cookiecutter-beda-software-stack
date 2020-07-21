@@ -29,8 +29,10 @@ def robust_fn(coro_fn):
                     raise
 
                 delay = 3 * tries
-                logging.debug('Caught an exception in `robust_call`\n{0}\n'
-                              'Repeating the function call in {1} seconds...'.format(exc, delay))
+                logging.debug(
+                    "Caught an exception in `robust_call`\n{0}\n"
+                    "Repeating the function call in {1} seconds...".format(exc, delay)
+                )
                 await asyncio.sleep(delay)
 
     return _fn

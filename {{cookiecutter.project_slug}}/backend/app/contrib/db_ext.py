@@ -6,7 +6,7 @@ from sqlalchemy.sql.expression import FunctionElement
 
 
 class knife_extract_text(FunctionElement):
-    name = 'knife_extract_text'
+    name = "knife_extract_text"
 
 
 @compiles(knife_extract_text)
@@ -15,7 +15,7 @@ def compile_knife_extract_text(element, compiler, **kw):
 
 
 class knife_extract_max_numeric(FunctionElement):
-    name = 'knife_extract_max_numeric'
+    name = "knife_extract_max_numeric"
 
 
 @compiles(knife_extract_max_numeric)
@@ -24,7 +24,7 @@ def compile_knife_extract_max_numeric(element, compiler, **kw):
 
 
 class knife_extract_min_timestamptz(FunctionElement):
-    name = 'knife_extract_min_timestamptz'
+    name = "knife_extract_min_timestamptz"
 
 
 @compiles(knife_extract_min_timestamptz)
@@ -33,7 +33,7 @@ def compile_knife_extract_min_timestamptz(element, compiler, **kw):
 
 
 class knife_date_bound(FunctionElement):
-    name = 'knife_date_bound'
+    name = "knife_date_bound"
 
 
 @compiles(knife_date_bound)
@@ -42,7 +42,7 @@ def compile_knife_date_bound(element, compiler, **kw):
 
 
 class aidbox_text_search(FunctionElement):
-    name = 'aidbox_text_search'
+    name = "aidbox_text_search"
 
 
 @compiles(aidbox_text_search)
@@ -51,7 +51,7 @@ def compile_aidbox_text_search(element, compiler, **kw):
 
 
 class unaccent(FunctionElement):
-    name = 'unaccent'
+    name = "unaccent"
 
 
 @compiles(unaccent)

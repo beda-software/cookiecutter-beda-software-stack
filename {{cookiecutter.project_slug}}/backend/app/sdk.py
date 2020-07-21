@@ -10,4 +10,5 @@ sdk = SDK(
     entities=entities,
     resources=meta_resources,
     seeds=seeds,
-    migrations=migrations)
+    migrations=migrations,
+)
