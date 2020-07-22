@@ -9,9 +9,6 @@ services:
       - devbox
     env_file:
       - .env
-    ports:
-      - "8081:8081"
-      - "8082:8082"
     volumes:
       - ./backend:/app:cached
       - ./config:/var/config:cached
