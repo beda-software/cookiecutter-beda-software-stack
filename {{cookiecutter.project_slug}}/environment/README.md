@@ -11,7 +11,7 @@ Copy `.env.tpl` to `.env` and specify `AIDBOX_LICENSE_ID` and `AIDBOX_LICENSE_KE
 ### Google Cloud
 * Create cluster in google
 * Create storage for files
-* Create iam->service account for storage
+* Add service account for storage: IAM > Service accounts
 
 ### K8S
 * Create `ServiceAccount` gitlab-admin (using apply -f and the following file)
@@ -69,7 +69,7 @@ spec:
   * {{cookiecutter.cluster_name_prefix}}-backend-develop
 * Generate secrets using `kubernetes-init-scripts`:
   * Go to directory `cd kubernetes-init-scripts`
-  * Run `docker-compose run -e TIER=master --rm init init.sh > .env`
+  * Run `docker-compose run -e TIER=master --rm init init.sh >> .env`
   * Specify `AIDBOX_LICENSE_ID`, `AIDBOX_LICENSE_KEY`, `BUCKET`, `BUCKET_GCE_KEY` for the current tier in `.env` 
   * Run `docker-compose run -e TIER=master --rm init init-app.sh > app-master.yaml`
   * Run `docker-compose run -e TIER=master --rm init init-aidbox.sh > aidbox-master.yaml`
