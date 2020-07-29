@@ -41,8 +41,6 @@ spec:
           items:
           - key: BUCKET_GCE_KEY
             path: service-account.json
-      nodeSelector:
-        cloud.google.com/gke-nodepool: default-pool
       containers:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
