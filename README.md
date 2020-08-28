@@ -10,5 +10,5 @@ pip install cookiecutter
 Run
 
 ```
-cookiecutter https://gitlab.bro.engineering/app_templates/cookiecutter-beda-software-stack
+cookiecutter https://github.com/beda-software/cookiecutter-beda-software-stack.git
 ```
