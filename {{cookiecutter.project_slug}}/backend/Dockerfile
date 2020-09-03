@@ -5,7 +5,7 @@ WORKDIR /app
 # COPY ./requirements ./requirements
 COPY . .
 RUN pip install pipenv
-RUN pipenv install --dev
+RUN pipenv install
 
 CMD ["gunicorn", "main:create_app", "--worker-class", "aiohttp.worker.GunicornWebWorker", "-b", "0.0.0.0:8081"]
 EXPOSE 8081
