@@ -1,5 +1,6 @@
 import logging
 import coloredlogs
+from asyncio import get_event_loop
 
 import sentry_sdk
 from sentry_sdk.integrations.logging import LoggingIntegration
@@ -9,6 +10,7 @@ from aidbox_python_sdk.main import create_app as _create_app
 # Don't remove these imports
 from app.sdk import sdk_settings, sdk
 import app.subscriptions
+{% if cookiecutter.add_push_notifications|lower == 'y' %}import app.push_notification as pn{% endif %}
 
 
 coloredlogs.install(
@@ -29,3 +31,9 @@ sentry_sdk.init(integrations=[AioHttpIntegration(), sentry_logging])
 
 async def create_app():
     return await _create_app(sdk_settings, sdk, debug=True)
+
+
+{% if cookiecutter.add_push_notifications|lower == 'y' %}
+get_event_loop().create_task(pn.main_notifications_queue_worker())
+get_event_loop().create_task(pn.filtered_notifications_queue_worker())
+{% endif %}
