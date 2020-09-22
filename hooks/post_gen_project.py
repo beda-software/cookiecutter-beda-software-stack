@@ -1,4 +1,3 @@
-import logging
 import os
 import shutil
 import sys
@@ -40,14 +39,10 @@ if __name__ == '__main__':
     if not create_frontend or not create_mobile:
         shutil.rmtree('shared')
 
-    logging.error('paths: %s', REMOVE_PATHS)
-
     for path in REMOVE_PATHS:
         path = path.strip()
         path = os.path.join(os.getcwd(), path)
-        logging.error("Path: %s", path)
         if path and os.path.exists(path):
-            logging.error("exists")
             if os.path.isdir(path):
                 shutil.rmtree(path)
             else:
