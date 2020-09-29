@@ -4,7 +4,10 @@ import sys
 from subprocess import Popen, PIPE
 
 REMOVE_PATHS = [
-    {% if cookiecutter.add_push_notifications == "n" %}'backend/app/push_notification.py',{% endif %}
+    {% if cookiecutter.add_push_notifications == "n" %}
+    'backend/app/push_notification.py',
+    'backend/app/access_policy/generic.py',
+    {% endif %}
     {% if cookiecutter.add_gcs == "n" %}
     'backend/app/gcs.py',
     'backend/app/contrib/google_cloud.py',
