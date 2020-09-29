@@ -23,6 +23,7 @@ meta_resources = merge_resources(
                 "grant_types": ["authorization_code"],
             },
         },
+        {% if cookiecutter.add_google_oauth|lower == 'y' %}
         "IdentityProvider": {
             "google": {
                 "type": "google",
@@ -32,6 +33,7 @@ meta_resources = merge_resources(
                 },
             },
         },
+        {% endif %}
         "AidboxConfig": {
             "provider": {
                 "provider": {"console": {"type": "console"}, "default": "console"},
@@ -90,7 +92,33 @@ seeds = merge_resources(
 )
 
 entities = {
-    # Place custom resources here
+    {% if cookiecutter.add_push_notifications|lower == 'y' %}
+    "PushSubscription": {
+        "attrs": {
+            "user": {
+                "type": "Reference",
+                "isRequired": True,
+                "search": {"name": "user", "type": "reference",},
+            },
+            "session": {
+                "type": "Reference",
+                "isRequired": False,
+                "search": {"name": "session", "type": "reference",},
+            },
+            "deviceType": {
+                "type": "string",
+                "enum": ["ios", "android"],
+                "isRequired": True,
+                "search": {"name": "status", "type": "token",},
+            },
+            "deviceToken": {
+                "type": "string",
+                "isRequired": True,
+                "search": {"name": "device-token", "type": "token",},
+            },
+        },
+    },
+    {% endif %}
 }
 
 migrations = load_sql_migrations(os.path.join(config.root_dir, "resources/migrations"))

@@ -2,9 +2,9 @@
 
 ## Setup
 
-Install cookiecutter
+Install cookiecutter and other dependencies
 ```bash
-pip install cookiecutter 
+pip install -r requirements.txt 
 ```
 
 Run

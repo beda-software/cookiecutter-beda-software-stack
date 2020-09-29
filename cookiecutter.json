@@ -4,6 +4,12 @@
     "project_slug_dashed": "{{ cookiecutter.project_slug|replace('_', '-') }}",
     "project_domain": "{{ cookiecutter.project_slug_dashed }}.beda.software",
     "cluster_name_prefix": "{{ cookiecutter.project_slug_dashed }}",
+    "add_twilio": "n",
+    "add_postmark": "n",
+    "add_gcs": "n",
+    "add_aws": "n",
+    "add_push_notifications": "n",
+    "add_google_oauth": "n",
     "create_frontend": "n",
     "create_mobile": "n"
 }
