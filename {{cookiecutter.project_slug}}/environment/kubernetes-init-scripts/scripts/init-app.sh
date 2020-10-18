@@ -5,6 +5,7 @@ source ./scripts/defaults.sh
 cat << EOF
 apiVersion: v1
 data:
+  SECRET_KEY: `echo -n $SECRET_KEY | base64 -w 0`
   AIO_HOST: `echo -n $AIO_HOST | base64 -w 0`
   AIO_PORT: `echo -n $AIO_PORT | base64 -w 0`
   APP_ID: `echo -n $APP_ID | base64 -w 0`
