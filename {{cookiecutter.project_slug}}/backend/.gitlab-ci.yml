@@ -1,7 +1,5 @@
 stages:
-  - build
-  - test
-  - release
+  - build_test_release
   - deploy
 
 variables:
@@ -14,23 +12,30 @@ variables:
 services:
   - docker:19-dind
 
-build:
-  stage: build
+build_test_release:
+  stage: build_test_release
+  image: tmaier/docker-compose:19
   before_script:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
   script:
+    # BUILD
+    - echo -e "section_start:`date +%s`:build_section\r\e[0KBuild"
     - docker pull $CACHE_IMAGE || true
-    - docker build --cache-from $CACHE_IMAGE -t $BUILD_IMAGE -t $CACHE_IMAGE .
-    - docker push $BUILD_IMAGE
+    - docker build --cache-from $CACHE_IMAGE --tag $BUILD_IMAGE .
+    - docker tag $BUILD_IMAGE $CACHE_IMAGE
     - docker push $CACHE_IMAGE
+    - echo -e "section_end:`date +%s`:build_section\r\e[0K"
 
-test:
-  stage: test
-  image: tmaier/docker-compose:19
-  script: ./run_test.sh
-  before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
-    - docker pull $BUILD_IMAGE
+    # TEST
+    - echo -e "section_start:`date +%s`:test_section\r\e[0KTest"
+    - ./run_test.sh
+    - echo -e "section_end:`date +%s`:test_section\r\e[0K"
+
+    # RELEASE
+    - echo -e "section_start:`date +%s`:release_section\r\e[0KRelease"
+    - docker tag $BUILD_IMAGE $CONTAINER_RELEASE_IMAGE
+    - docker push "$CONTAINER_RELEASE_IMAGE"
+    - echo -e "section_end:`date +%s`:release_section\r\e[0K"
   after_script:
     - docker-compose -f docker-compose.tests.yaml down
   artifacts:
@@ -39,19 +44,6 @@ test:
   only:
     - branches
     - tags
-
-release:
-  stage: release
-  before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
-    - docker pull $BUILD_IMAGE
-  script:
-    - docker tag $BUILD_IMAGE $CONTAINER_RELEASE_IMAGE
-    - docker push $CONTAINER_RELEASE_IMAGE
-  only:
-    - master
-    - staging
-    - develop
 
 deploy:
   stage: deploy
