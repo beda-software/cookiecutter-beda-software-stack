@@ -9,5 +9,5 @@ COPY Pipfile.lock .
 RUN pipenv install
 COPY . .
 
-CMD ["gunicorn", "main:create_app", "--worker-class", "aiohttp.worker.GunicornWebWorker", "-b", "0.0.0.0:8081"]
+CMD ["pipenv", "run", "gunicorn", "main:create_app", "--worker-class", "aiohttp.worker.GunicornWebWorker", "-b", "0.0.0.0:8081"]
 EXPOSE 8081
