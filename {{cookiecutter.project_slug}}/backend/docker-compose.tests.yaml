@@ -1,5 +1,12 @@
 version: '3.1'
 services:
+  dockerize:
+    image: jwilder/dockerize
+    command: dockerize -wait http://devbox:8080/__healthcheck -timeout 300s
+    depends_on:
+      - devbox
+    links:
+      - devbox
   backend:
     image: ${BUILD_IMAGE:-{{cookiecutter.project_slug_dashed}}-backend-test}
     build: .
