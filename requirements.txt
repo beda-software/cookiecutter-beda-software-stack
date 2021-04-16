@@ -1,2 +1,2 @@
-cookiecutter==1.7.0
-pipenv==2020.8.13
+cookiecutter==1.7.2
+pipenv==2020.11.15
