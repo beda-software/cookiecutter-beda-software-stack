@@ -25,7 +25,7 @@ services:
     # Colored logs
     tty: true
   devbox:
-    image: "healthsamurai/devbox:0.5.0-SNAPSHOT"
+    image: "healthsamurai/devbox:0.5.0-RC1"
     depends_on:
       - devbox-db
     links:
@@ -38,7 +38,7 @@ services:
     volumes:
       - ./wait-for-it.sh:/usr/local/bin/wait-for-it.sh:cached
   devbox-db:
-    image: "aidbox/db:11.8.6"
+    image: "healthsamurai/aidboxdb:13.2"
     environment:
       POSTGRES_USER:     postgres
       POSTGRES_PASSWORD: postgres

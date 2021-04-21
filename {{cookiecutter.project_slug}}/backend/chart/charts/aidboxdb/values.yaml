@@ -1,7 +1,7 @@
 replicaCount: 1
 image:
-  repository: aidbox/db
-  tag: 11.8.6
+  repository: healthsamurai/aidboxdb
+  tag: 13.2
   pullPolicy: IfNotPresent
 
 service:
