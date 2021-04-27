@@ -48,20 +48,19 @@ subjects:
   name: gitlab-admin
   namespace: kube-system
 ```
-* Install helm v3 and add repo:
-```
-helm repo add stable https://kubernetes-charts.storage.googleapis.com/
-```
 
-[seems like for helm 3 we need another repo address](https://helm.sh/blog/new-location-stable-incubator-charts/):
+* Install helm v3 and [add repo:](https://helm.sh/blog/new-location-stable-incubator-charts/):
 ```
 helm repo add stable https://charts.helm.sh/stable
 ```
 
 * Install `nginx-ingress` using helm:
 ```
-helm install nginx-ingress  stable/nginx-ingress --set rbac.create=true --set controller.publishService.enabled=true
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
+helm install nginx-ingress ingress-nginx/ingress-nginx --set rbac.create=true --set controller.publishService.enabled=true
 ```
+
 * Install `cert-manager` following the doc https://cert-manager.io/docs/installation/kubernetes/
 * Create ClusterIssuer `letsencrypt-prod`
 ```
