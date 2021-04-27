@@ -19,11 +19,13 @@ You'll probably need `gcloud`, `kubectl` and `helm` to be installed on your comp
 Set `KUBECONFIG` value in terminal, for example `export KUBECONFIG=~/.kube/your-project-or-cluster-name`.
 
 Then get a kube config for a cluster:
+
 Run in terminal `gcloud auth login`. It'll open a browser with google auth page, choose the right account and authorize.
-Then go to Kubernetes Engine > Clusters, click on additional actions for your cluster and choose "Connect". Copy gcloud command from "Command-line access" section and run it in your terminal. It (will saves)[https://cloud.google.com/sdk/gcloud/reference/container/clusters/get-credentials] a config to specified KUBECONFIG path (`~/.kube/config` if it wasn't specified).
+
+Then go to Kubernetes Engine > Clusters, click on additional actions for your cluster and choose "Connect". Copy gcloud command from "Command-line access" section and run it in your terminal. It [will saves](https://cloud.google.com/sdk/gcloud/reference/container/clusters/get-credentials) a config to specified KUBECONFIG path (`~/.kube/config` if it wasn't specified).
 
 ### K8S
-* Create `ServiceAccount` gitlab-admin (using apply -f and the following file)
+* Create `ServiceAccount` gitlab-admin (using `kubectl apply -f ` and a path to the following file)
 ```yaml
 apiVersion: v1
 kind: ServiceAccount
