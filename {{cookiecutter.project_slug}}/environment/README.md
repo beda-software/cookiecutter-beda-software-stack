@@ -52,6 +52,12 @@ subjects:
 ```
 helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 ```
+
+[seems like for helm 3 we need another repo address](https://helm.sh/blog/new-location-stable-incubator-charts/):
+```
+helm repo add stable https://charts.helm.sh/stable
+```
+
 * Install `nginx-ingress` using helm:
 ```
 helm install nginx-ingress  stable/nginx-ingress --set rbac.create=true --set controller.publishService.enabled=true
