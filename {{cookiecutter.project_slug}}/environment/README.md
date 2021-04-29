@@ -96,10 +96,10 @@ spec:
   * Repeat all actions for each tier: master, staging, develop (you can do it later)
 
 ### Gitlab
-* Create deploy token
+* Create deploy token in Settings>Repository>Deploy tokens. The only scope should be `read_registry`.
 * Create registry secret:
 ```
-kubectl -n demo-staging create secret docker-registry gitlab-registry --docker-username=[DEPLOY TOKEN USERNAME] --docker-password=[DEPLOY TOKEN PASSWORD] --docker-email=[YOUR EMAIL] --docker-server=registry.bro.engineering
+kubectl -n [K8S NAMESPACE] create secret docker-registry gitlab-registry --docker-username=[DEPLOY TOKEN USERNAME] --docker-password=[DEPLOY TOKEN PASSWORD] --docker-email=[YOUR EMAIL] --docker-server=registry.bro.engineering
 ```
 3. Fetch token for `gitlab-admin` `ServiceAccount`:
 ```
@@ -113,7 +113,7 @@ Copy base64 encoded token and run
 ```
 echo -n [BASE64 ENCODED TOKEN] | base64 -D
 ```
-4. Setup env variables in CI->Variables for the project
+4. Setup env variables in CI/CD->Variables for the project
 ```
 TESTS_AIDBOX_LICENSE_ID=ID FOR TESTS PURPOSES
 TESTS_AIDBOX_LICENSE_KEY=KEY FOR TESTS PURPOSES
