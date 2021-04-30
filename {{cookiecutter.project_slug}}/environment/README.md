@@ -99,7 +99,7 @@ spec:
 * Create deploy token in Settings>Repository>Deploy tokens. The only scope should be `read_registry`.
 * Create registry secret:
 ```
-kubectl -n [K8S NAMESPACE] create secret docker-registry gitlab-registry --docker-username=[DEPLOY TOKEN USERNAME] --docker-password=[DEPLOY TOKEN PASSWORD] --docker-email=[YOUR EMAIL] --docker-server=registry.bro.engineering
+kubectl -n [K8S NAMESPACE] create secret docker-registry gitlab-registry --docker-username=[DEPLOY TOKEN USERNAME] --docker-password=[DEPLOY TOKEN PASSWORD] --docker-email=[YOUR EMAIL] --docker-server=registry.beda.software
 ```
 3. Fetch token for `gitlab-admin` `ServiceAccount`:
 ```
