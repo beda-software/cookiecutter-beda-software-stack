@@ -25,7 +25,7 @@ services:
     # Colored logs
     tty: true
   devbox:
-    image: "healthsamurai/devbox:0.5.0-RC1"
+    image: "healthsamurai/devbox:stable"
     depends_on:
       - devbox-db
     links:
