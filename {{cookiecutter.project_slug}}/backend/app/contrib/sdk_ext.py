@@ -27,7 +27,7 @@ def load_resources_by_ids(abs_path):
 
         resource_id = filename[:-5]
         with open(os.path.join(abs_path, filename)) as f:
-            resources[resource_id] = yaml.load(f)
+            resources[resource_id] = yaml.safe_load(f)
     return resources
 
 
